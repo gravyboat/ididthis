@@ -10,7 +10,9 @@ def teardown():
 def test_log_path():
     log_path = ididthis.read_config()
     print(log_path)
-    assert_equal(log_path, {'local_log_dir': './log'})
+    assert_equal(log_path, {'local_log_dir': './log',
+                            'local_log_file': 'ididthis.log'}
+                )
 
 def test_local_log():
     print('yep!')
