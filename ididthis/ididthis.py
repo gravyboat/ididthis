@@ -3,7 +3,7 @@
 import os
 import yaml
 from optparse import OptionParser
-from logging import local_logging
+from .logging import local_logging
 
 root_dir = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
 
