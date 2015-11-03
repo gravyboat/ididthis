@@ -1,5 +1,5 @@
 from nose.tools import *
-from ididthis import ididthis, logging
+from ididthis import ididthis
 
 def setup():
     print("SETUP!")
