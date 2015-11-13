@@ -10,8 +10,9 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+  - pip install coverage
 
-script: nosetests
+script: nosetests --with-coverage
 
 after_success:
   coveralls
