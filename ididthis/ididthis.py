@@ -13,9 +13,15 @@ def read_config(kwargs=None):
     Read the default or user specific config file
     '''
     default_conf_options = {
-            'local_log_dir': './log',
+            'local_log_dir': 'log',
             'local_log_file': 'ididthis.log',
             }
+
+    if not kwargs:
+        kwargs = {}
+
+    if 'root_dir' in kwargs:
+        print('Custome root dir')
 
     ididthis_config = yaml.safe_load(open(root_dir + '/conf/ididthis.conf'))
 
@@ -28,27 +34,30 @@ def read_config(kwargs=None):
 
     return(ididthis_config)
 
-def write_entry(ididthis_config, kwargs=None):
+
+def write_entry(ididthis_config, commit_message):
     '''
     Write a local entry to the specific config file
     '''
-    if not kwargs:
-        kwargs = {}
 
-    if 'commit_message' not in kwargs:
+    if not commit_message:
         print('A message to commit is required.')
         return(False)
 
 
-    log_file = ididthis_config['local_log_dir'] + '/' + ididthis_config['local_log_file']
-        
+    log_file = root_dir + '/' + ididthis_config['local_log_dir'] + '/' + ididthis_config['local_log_file']
+    # move this to logging functions
+    if not os.path.exists(os.path.dirname(root_dir + '/' + ididthis_config['local_log_dir'])):
+        os.makedirs(os.path.dirname(root_dir + '/' + ididthis_config['local_log_dir']))
 
-    open_log_file = open(log_file, 'w')
+    open_log_file = open(log_file, 'a+')
+    open_log_file.write(commit_message)
+    open_log_file.close()
 
-#    return(result)
 
 def write_entry_remotely(ididthis_config, kwargs=None):
     pass
+
 
 def append_entry(ididthis_config, kwargs=None):
     '''
@@ -61,6 +70,10 @@ def append_entry(ididthis_config, kwargs=None):
     if 'date' and 'entry' not in kwargs:
         print('A date and entry are required.')
         return(False)
+
+def get_date(ididthis_config, kwargs=None):
+    pass
+
 
 def get_history(ididthis_config, kwargs=None):
     '''

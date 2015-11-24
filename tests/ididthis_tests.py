@@ -4,13 +4,17 @@ import os
 from ididthis import ididthis
 from ididthis.logging import local_logging
 
+root_dir = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
+
 def setup():
     '''
-    Create our test config files
+    Create our test log file and conf file
     '''
-    with open('ididthis.conf', 'w') as conf_file:
-        conf_file.write("#####2015-11/14######\n")
-    conf_file.close()
+    if not os.path.exists(os.path.dirname(root_dir + '/log/ididthis.log')):
+            os.makedirs(os.path.dirname(root_dir + '/log/ididthis.log'))
+    with open(root_dir + '/log/ididthis.log', 'a') as log_file:
+        log_file.write("#####2015-11-[23-29]######\n")
+    log_file.close()
 
 
 def test_local_conf_read():
@@ -25,7 +29,7 @@ def test_log_path():
     '''
     log_path = ididthis.read_config()
     print(log_path)
-    assert_equal(log_path, {'local_log_dir': './log',
+    assert_equal(log_path, {'local_log_dir': 'log',
                             'local_log_file': 'ididthis.log'}
                 )
 
@@ -41,6 +45,10 @@ def test_log_write():
     '''
     Test writing to the log file
     '''
+    log_path = ididthis.read_config()
+    commit_message = 'i did this'
+
+    ididthis.write_entry(log_path, commit_message)
     print("log write")
 
 
@@ -62,5 +70,6 @@ def teardown():
     '''
     Delete our test config files
     '''
-    os.remove('ididthis.conf')
+#    os.remove(root_dir + '/log/ididthis.log')
+    pass
 
