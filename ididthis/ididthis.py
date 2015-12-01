@@ -3,7 +3,6 @@
 from __future__ import absolute_import
 import os
 import yaml
-from optparse import OptionParser
 from ididthis.logging import local_logging
 
 root_dir = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
@@ -83,27 +82,3 @@ def get_history(ididthis_config, kwargs=None):
     '''
 
 #    return(result)
-
-
-
-if __name__ == '__main__':
-    ididthis_config = read_config()
-
-    parser = OptionParser()
-    parser.add_option("-r",
-                      "--remote",
-                      dest = "remote",
-                      help = "Log entry remotely"
-                     )
-    parser.add_option("-c",
-                      "--config",
-                      dest = "config",
-                      help = "Specify config location"
-                     )
-    parser.add_option("-g",
-                      "--get-history",
-                      dest = "get_history",
-                      help = "Get your history, time range can be integer"
-                     )
-
-    (options, args) = parser.parse_args()
