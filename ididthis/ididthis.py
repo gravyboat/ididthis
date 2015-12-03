@@ -19,11 +19,12 @@ def read_config(kwargs=None):
     if not kwargs:
         kwargs = {}
 
-    if 'root_dir' in kwargs:
-        print('Custome root dir')
-        print(root_dir)
-
-    ididthis_config = yaml.safe_load(open(root_dir + '/conf/ididthis.conf'))
+    if 'custom_root_dir' in kwargs:
+        config_root_dir = custom_root_dir
+    else:
+        config_root_dir = root_dir
+        
+    ididthis_config = yaml.safe_load(open(config_root_dir + '/conf/ididthis.conf'))
 
     for conf_option, option_value in default_conf_options.items():
         if conf_option not in ididthis_config:

@@ -27,9 +27,8 @@ def test_custom_root_dir():
     Test out a different root dir, will eventually be a command
     line option
     '''
-    custom_log_path = ididthis.read_config(root_dir)
-    print(custom_log_path)
-    assert_equal(custom_log_path, {'local_log_dir': 'log',
+    custom_root_dir = ididthis.read_config(root_dir)
+    assert_equal(custom_root_dir, {'local_log_dir': 'log',
                             'local_log_file': 'ididthis.log'}
                 )
 
