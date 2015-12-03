@@ -21,11 +21,9 @@ def read_config(kwargs=None):
 
     if 'root_dir' in kwargs:
         print('Custome root dir')
+        print(root_dir)
 
     ididthis_config = yaml.safe_load(open(root_dir + '/conf/ididthis.conf'))
-
-    if not ididthis_config:
-        ididthis_config = {}
 
     for conf_option, option_value in default_conf_options.items():
         if conf_option not in ididthis_config:
@@ -39,7 +37,7 @@ def write_entry(ididthis_config, commit_message):
     Write a local entry to the specific config file
     '''
 
-    if not commit_message:
+    if commit_message == '':
         print('A message to commit is required.')
         return(False)
 

@@ -22,6 +22,17 @@ def test_local_conf_read():
     Test reading from the local conf
     '''
 
+def test_custom_root_dir():
+    '''
+    Test out a different root dir, will eventually be a command
+    line option
+    '''
+    custom_log_path = ididthis.read_config(root_dir)
+    print(custom_log_path)
+    assert_equal(custom_log_path, {'local_log_dir': 'log',
+                            'local_log_file': 'ididthis.log'}
+                )
+
 
 def test_log_path():
     '''
@@ -50,6 +61,14 @@ def test_log_write():
 
     ididthis.write_entry(log_path, commit_message)
     print("log write")
+
+def test_no_log_write():
+    '''
+    Test what happens when we try to write with no commit
+    '''
+    log_path = ididthis.read_config()
+    commit_message = ''
+    assert_false(ididthis.write_entry(log_path, commit_message))
 
 
 def test_log_read():
