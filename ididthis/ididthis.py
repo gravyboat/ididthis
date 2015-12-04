@@ -7,7 +7,7 @@ from ididthis.logging import local_logging
 
 root_dir = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
 
-def read_config(kwargs=None):
+def read_config(*kwargs):
     '''
     Read the default or user specific config file
     '''
@@ -71,14 +71,14 @@ def append_entry(ididthis_config, **kwargs):
 
     return(True)
 
-def get_date(ididthis_config, kwargs=None):
+def get_date(ididthis_config, **kwargs):
     '''
     Return details on the date so we know what to look for
     '''
     return(True)
 
 
-def get_history(ididthis_config, kwargs=None):
+def get_history(ididthis_config, **kwargs):
     '''
     reads the file with a specific date where entry and date are in the command
     defaults to last 7 days (if they exist) and let users see specific entries

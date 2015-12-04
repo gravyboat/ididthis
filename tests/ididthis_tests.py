@@ -81,7 +81,7 @@ def test_remote_log_write():
     assert_true(ididthis.write_entry_remotely(log_path, commit_message))
 
 
-def test_log_read():
+def test_log_history():
     '''
     Test reading from the log
     '''
@@ -90,7 +90,7 @@ def test_log_read():
     print("log read")
 
 
-def test_log_read_specific_date():
+def test_log_history_specific_date():
     '''
     Test reading a specific date from the log
     '''
@@ -113,10 +113,15 @@ def test_no_append_entry():
     assert_false(ididthis.append_entry(log_path))
 
 
+def test_get_date():
+    log_path = ididthis.read_config()
+    assert_true(ididthis.get_date(log_path))
+
+
 def teardown():
     '''
     Delete our test config files
     '''
-#    os.remove(root_dir + '/log/ididthis.log')
-    pass
+    os.remove(root_dir + '/log/ididthis.log')
+    os.rmdir(root_dir + '/log')
 
