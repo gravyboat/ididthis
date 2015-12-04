@@ -1,6 +1,7 @@
 from nose.tools import *
 import sys
 import os
+import errno
 from ididthis import ididthis
 from ididthis.logging import local_logging
 
@@ -10,33 +11,52 @@ def setup():
     '''
     Create our test log file and conf file
     '''
-    if not os.path.exists(os.path.dirname(root_dir + '/log/ididthis.log')):
-            os.makedirs(os.path.dirname(root_dir + '/log/ididthis.log'))
-    with open(root_dir + '/log/ididthis.log', 'a') as log_file:
+    if not os.path.exists(os.path.dirname(root_dir + '/log/')):
+        try:
+            os.makedirs(os.path.dirname(root_dir + '/log/'))
+        except OSError as system_error:
+            if system_error.errno != errno.EEXIST:
+                raise system_serror
+            pass
+
+    with open(root_dir + '/log/ididthis.log', 'w') as log_file:
         log_file.write("#####2015-11-[23-29]######\n")
     log_file.close()
+
+    if not os.path.exists(os.path.dirname(root_dir + '/tests/conf/ididthis.conf')):
+        try:
+            os.makedirs(os.path.dirname(root_dir + '/tests/conf/'))
+        except OSError as system_error:
+            if system_error.errno != errno.EEXIST:
+                raise system_serror
+            pass
+    with open(root_dir + '/tests/conf/ididthis.conf', 'w') as conf_file:
+        conf_file.write("local_log_dir: log_test\nlocal_log_file: ididthis.log")
+    conf_file.close()
 
 
 def test_local_conf_read():
     '''
     Test reading from the local conf
     '''
+    #test_conf_read = ididthis.read_config(root_dir)
 
-def test_custom_root_dir():
+def test_custom_conf_dir():
     '''
     Test out a different root dir, will eventually be a command
     line option
     '''
-    custom_root_dir = root_dir
-    test_custom_root_dir = ididthis.read_config(custom_root_dir)
-    assert_equal(test_custom_root_dir, {'local_log_dir': 'log',
+    custom_conf_dir = (root_dir + '/tests')
+    test_custom_conf_dir = ididthis.read_config()
+    # While file is written something is wrong with logic here, not reading file
+    assert_equal(test_custom_conf_dir, {'local_log_dir': 'log',
                             'local_log_file': 'ididthis.log'}
                 )
 
 
 def test_log_path():
     '''
-    Test that the log pathing works
+    Test that the log pathing is accurate
     '''
     log_path = ididthis.read_config()
     print(log_path)

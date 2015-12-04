@@ -7,7 +7,7 @@ from ididthis.logging import local_logging
 
 root_dir = os.path.split(os.path.abspath(os.path.dirname(__file__)))[0]
 
-def read_config(*kwargs):
+def read_config(**kwargs):
     '''
     Read the default or user specific config file
     '''
@@ -16,15 +16,12 @@ def read_config(*kwargs):
             'local_log_file': 'ididthis.log',
             }
 
-    if not kwargs:
-        kwargs = {}
+    if 'custom_conf_dir' in kwargs:
+        return(custom_conf_dir)
 
-    if 'custom_root_dir' in kwargs:
-        config_root_dir = custom_root_dir
+        ididthis_config = yaml.safe_load(open(custom_conf_dir + '/conf/ididthis.conf'))
     else:
-        config_root_dir = root_dir
-        
-    ididthis_config = yaml.safe_load(open(config_root_dir + '/conf/ididthis.conf'))
+        ididthis_config = yaml.safe_load(open(root_dir + '/conf/ididthis.conf'))
 
     for conf_option, option_value in default_conf_options.items():
         if conf_option not in ididthis_config:
