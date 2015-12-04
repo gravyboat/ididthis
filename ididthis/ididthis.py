@@ -53,11 +53,11 @@ def write_entry(ididthis_config, commit_message):
     open_log_file.close()
 
 
-def write_entry_remotely(ididthis_config, kwargs=None):
-    pass
+def write_entry_remotely(ididthis_config, commit_message):
+    return(True)
 
 
-def append_entry(ididthis_config, kwargs=None):
+def append_entry(ididthis_config, **kwargs):
     '''
     Modify a specific entry in the config, date and entry must be specified
     '''
@@ -69,8 +69,13 @@ def append_entry(ididthis_config, kwargs=None):
         print('A date and entry are required.')
         return(False)
 
+    return(True)
+
 def get_date(ididthis_config, kwargs=None):
-    pass
+    '''
+    Return details on the date so we know what to look for
+    '''
+    return(True)
 
 
 def get_history(ididthis_config, kwargs=None):
@@ -79,5 +84,6 @@ def get_history(ididthis_config, kwargs=None):
     defaults to last 7 days (if they exist) and let users see specific entries
     if they need to modify them
     '''
+    return(True)
 
 #    return(result)

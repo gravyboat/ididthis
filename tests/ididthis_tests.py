@@ -27,8 +27,9 @@ def test_custom_root_dir():
     Test out a different root dir, will eventually be a command
     line option
     '''
-    custom_root_dir = ididthis.read_config(root_dir)
-    assert_equal(custom_root_dir, {'local_log_dir': 'log',
+    custom_root_dir = root_dir
+    test_custom_root_dir = ididthis.read_config(custom_root_dir)
+    assert_equal(test_custom_root_dir, {'local_log_dir': 'log',
                             'local_log_file': 'ididthis.log'}
                 )
 
@@ -61,6 +62,7 @@ def test_log_write():
     ididthis.write_entry(log_path, commit_message)
     print("log write")
 
+
 def test_no_log_write():
     '''
     Test what happens when we try to write with no commit
@@ -70,10 +72,21 @@ def test_no_log_write():
     assert_false(ididthis.write_entry(log_path, commit_message))
 
 
+def test_remote_log_write():
+    '''
+    Test writing to a remote location
+    '''
+    log_path = ididthis.read_config()
+    commit_message = 'i did this'
+    assert_true(ididthis.write_entry_remotely(log_path, commit_message))
+
+
 def test_log_read():
     '''
     Test reading from the log
     '''
+    log_path = ididthis.read_config()
+    assert_true(ididthis.get_history(log_path))
     print("log read")
 
 
@@ -81,7 +94,23 @@ def test_log_read_specific_date():
     '''
     Test reading a specific date from the log
     '''
-    print("read specific date")
+    pass
+    
+
+def test_append_entry():
+    '''
+    Test appending an entry
+    '''
+    log_path = ididthis.read_config()
+    assert_true(ididthis.append_entry(log_path, date='test', entry='test'))
+
+
+def test_no_append_entry():
+    '''
+    Test appending an entry with no data
+    '''
+    log_path = ididthis.read_config()
+    assert_false(ididthis.append_entry(log_path))
 
 
 def teardown():
