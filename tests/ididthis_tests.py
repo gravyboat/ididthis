@@ -37,9 +37,12 @@ def setup():
 
 def test_local_conf_read():
     '''
-    Test reading from the local conf
+    Test reading from the local conf even though we do it elsewhere
     '''
-    #test_conf_read = ididthis.read_config(root_dir)
+    test_conf_read = ididthis.read_config()
+    assert_equal(test_conf_read, {'local_log_dir': 'log',
+                            'local_log_file': 'ididthis.log'}
+                )
 
 def test_custom_conf_dir():
     '''
@@ -58,6 +61,7 @@ def test_log_path():
     '''
     Test that the log pathing is accurate
     '''
+    # Right now this does the same thing as local_conf_read
     log_path = ididthis.read_config()
     print(log_path)
     assert_equal(log_path, {'local_log_dir': 'log',
