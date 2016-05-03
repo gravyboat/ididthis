@@ -8,10 +8,14 @@ config = {
     'author': 'Forrest Alvarez',
     'url': 'https://github.com/gravyboat/ididthis',
     'version': '0.1',
-    'install_requires': ['nose', 'pyyaml', 'Click'],
+    'install_requires': ['nose', 'Click'],
     'packages': ['ididthis'],
     'scripts': [],
-    'name': 'ididthis'
+    'name': 'ididthis',
+    'entry_points': '''
+        [console_scripts]
+        idt=ididthis.idt:cli
+    ''',
 }
 
 setup(**config)
