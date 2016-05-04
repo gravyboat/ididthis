@@ -3,4 +3,3 @@ omit =
   */python?.?/*
   */site-packages/nose/*
   *__init__*
-  ididthis/logging/local_logging.py

@@ -22,21 +22,23 @@ def cli(config, log_dir):
     config.log_dir = log_dir
 
 @cli.command()
-@click.option('--m', default = 'world',
+@click.option('-m', default = 'commit message',
               help = 'This is your commit message')
-@click.argument('out', type=click.File('w'), default='idt.log',
-                required=False)
+@click.option('-log', default = 'idt.log',
+              help = 'This is your log file location')
+#@click.option('--out', type=click.File('w'), default='idt.log',
+#                required=False)
 
 
-def c(m, out):
+def c(m, log):
     """
-    Add a timestamped commit to your log file.
+    Add a timestamped commit to your log file
     """
 
-    handler = logging.FileHandler('idt.log')
+    handler = logging.FileHandler(log)
     formatter = logging.Formatter('%(asctime)s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
-#    click.echo(m)
+    click.echo('Message logged: {0}'.format(m))
     logger.error(m)
